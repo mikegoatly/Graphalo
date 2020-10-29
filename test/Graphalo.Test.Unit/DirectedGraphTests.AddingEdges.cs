@@ -71,7 +71,10 @@ namespace Graphalo.Test.Unit
             {
                 this.sut.AddVertex("A");
                 this.sut.AddEdge(new Edge<string>("A", "B"));
-                this.sut.AllVertices.Should().BeEquivalentTo("A", "B");
+                this.sut.AllVertices
+                    .OrderByDescending(v => v.InDegree)
+                    .Select(v => v.Vertex)
+                    .Should().BeEquivalentTo(new[] { "B", "A" }, o => o.WithStrictOrdering());
             }
 
             [Fact]

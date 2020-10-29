@@ -19,7 +19,7 @@ namespace Graphalo
         }
     }
 
-    public class DirectedGraph<TVertex, TEdge>
+    public class DirectedGraph<TVertex, TEdge> : IDirectedGraph<TVertex, TEdge> 
         where TEdge : IEdge<TVertex>
     {
         private HashSet<TVertex> vertexLookup;
@@ -54,7 +54,7 @@ namespace Graphalo
         /// Gets the vertices in this graph.
         /// </summary>
         /// <value>The vertices in this graph.</value>
-        public IEnumerable<TVertex> AllVertices => this.vertexLookup;
+        public IEnumerable<VertexInfo<TVertex, TEdge>> AllVertices => this.vertexLookup.Select(v => new VertexInfo<TVertex, TEdge>(this, v));
 
         /// <summary>
         /// Gets the edges in the graph.
@@ -243,7 +243,7 @@ namespace Graphalo
         /// </returns>
         public IReadOnlyList<TVertex> RemoveVertexWhere(Func<TVertex, bool> predicate)
         {
-            var removeVertices = this.AllVertices.Where(predicate).ToList();
+            var removeVertices = this.vertexLookup.Where(predicate).ToList();
             if (removeVertices.Count > 0)
             {
                 this.RemoveVertexRange(removeVertices);

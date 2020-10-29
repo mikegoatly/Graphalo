@@ -16,6 +16,9 @@ graph.AddVertex("A");
 graph.AddEdge(new Edge<string>("B", "C"));
 
 // Get all vertices without edges coming out of them
-graph.AllVertices.Where(v => graph.HasOutEdges(v) == false);
+graph.AllVertices.Where(v => v.HasOutEdges == false);
+
+// Order all vertices by their degree (count of in and out edges), largest first
+graph.AllVertices.OrderByDescending(v => v.Degree);
 
 ```
