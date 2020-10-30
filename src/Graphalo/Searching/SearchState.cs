@@ -23,9 +23,9 @@ namespace Graphalo.Searching
 
         public SearchState(IDirectedGraph<TVertex, TEdge> graph)
         {
-            this.unmarkedVertices = graph.AllVertices.Select(v => v.Vertex).ToHashSet();
-            this.permanentMarks = new HashSet<TVertex>();
-            this.temporaryMarks = new HashSet<TVertex>();
+            this.unmarkedVertices = graph.AllVertices.Select(v => v.Vertex).ToHashSet(graph.VertexComparer);
+            this.permanentMarks = new HashSet<TVertex>(graph.VertexComparer);
+            this.temporaryMarks = new HashSet<TVertex>(graph.VertexComparer);
         }
 
         public void SetTemporaryMark(TVertex vertex)
