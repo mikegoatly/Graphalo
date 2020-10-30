@@ -59,5 +59,14 @@ namespace Graphalo {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No temporary mark present.
+        /// </summary>
+        internal static string NoTemporaryMarkPresent {
+            get {
+                return ResourceManager.GetString("NoTemporaryMarkPresent", resourceCulture);
+            }
+        }
     }
 }

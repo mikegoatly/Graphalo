@@ -22,3 +22,17 @@ graph.AllVertices.Where(v => v.HasOutEdges == false);
 graph.AllVertices.OrderByDescending(v => v.Degree);
 
 ```
+
+## Searching
+
+### Depth first search
+
+``` csharp
+var graph = new DirectedGraph<string>();
+var search = GraphSearch.DepthFirst(graph); // Or new DepthFirstSearch<string, Edge<string>>(graph);
+
+foreach (var vertex in search.Execute())
+{
+	Console.WriteLine(vertex);
+}
+```
