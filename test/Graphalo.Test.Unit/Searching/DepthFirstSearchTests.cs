@@ -12,8 +12,7 @@ namespace Graphalo.Test.Unit.Searching
         public void WithEmptyGraph_ShouldReturnEmptyResults()
         {
             var graph = new DirectedGraph<string>();
-            var search = GraphSearch.DepthFirst(graph);
-            search.Execute().Should().BeEmpty();
+            graph.Search(SearchKind.DepthFirst).Should().BeEmpty();
         }
 
         [Fact]
@@ -47,21 +46,20 @@ namespace Graphalo.Test.Unit.Searching
         [Fact]
         public void WithMultipleVertices_ShouldReturnDeepestVertexFirst()
         {
-            //    F  G
-            //   /    \
-            // A-B-C-D-E
-            //   \---/
+            var graph = GraphWithMultipleVertices();
 
-            var graph = new DirectedGraph<string>();
-            graph.AddEdge(new Edge<string>("A", "B"));
-            graph.AddEdge(new Edge<string>("B", "C"));
-            graph.AddEdge(new Edge<string>("C", "D"));
-            graph.AddEdge(new Edge<string>("B", "D"));
-            graph.AddEdge(new Edge<string>("D", "E"));
-            graph.AddEdge(new Edge<string>("B", "F"));
-            graph.AddEdge(new Edge<string>("G", "E"));
+            ExecuteTest(graph, "E", "D", "C", "F", "B", "Z", "G");
+        }
 
-            ExecuteTest(graph, "E", "D", "C", "F", "B", "A", "G");
+        [Fact]
+        public void WithMultipleVertices_SearchingFromSpecificStartVertex_ShouldOnlyReturnReachableVertices()
+        {
+            var graph = GraphWithMultipleVertices();
+
+            graph.Search(SearchKind.DepthFirst, "C")
+                .Should().BeEquivalentTo(
+                    new[] { "E", "D", "C" },
+                    o => o.WithStrictOrdering());
         }
 
         [Fact]
@@ -75,12 +73,29 @@ namespace Graphalo.Test.Unit.Searching
             Assert.Throws<CyclicGraphsNotSupportedException>(() => ExecuteTest(graph, Array.Empty<string>()));
         }
 
-        private void ExecuteTest(DirectedGraph<string> graph, params string[] expectedOrder)
+        private static DirectedGraph<string> GraphWithMultipleVertices()
         {
-            var search = GraphSearch.DepthFirst(graph);
-            search.Execute().Should().BeEquivalentTo(
-                expectedOrder,
-                o => o.WithStrictOrdering());
+            //    F  G
+            //   /    \
+            // Z-B-C-D-E
+            //   \---/
+            var graph = new DirectedGraph<string>();
+            graph.AddEdge(new Edge<string>("B", "C"));
+            graph.AddEdge(new Edge<string>("Z", "B"));
+            graph.AddEdge(new Edge<string>("C", "D"));
+            graph.AddEdge(new Edge<string>("B", "D"));
+            graph.AddEdge(new Edge<string>("D", "E"));
+            graph.AddEdge(new Edge<string>("B", "F"));
+            graph.AddEdge(new Edge<string>("G", "E"));
+            return graph;
+        }
+
+        private static void ExecuteTest(DirectedGraph<string> graph, params string[] expectedOrder)
+        {
+            graph.Search(SearchKind.DepthFirst)
+                .Should().BeEquivalentTo(
+                    expectedOrder,
+                    o => o.WithStrictOrdering());
         }
     }
 }

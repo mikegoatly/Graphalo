@@ -61,11 +61,11 @@ namespace Graphalo {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No temporary mark present.
+        ///   Looks up a localized string similar to Unsupported search kind: {0}.
         /// </summary>
-        internal static string NoTemporaryMarkPresent {
+        internal static string UnsupportedSearchKind {
             get {
-                return ResourceManager.GetString("NoTemporaryMarkPresent", resourceCulture);
+                return ResourceManager.GetString("UnsupportedSearchKind", resourceCulture);
             }
         }
     }

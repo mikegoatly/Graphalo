@@ -27,11 +27,22 @@ graph.AllVertices.OrderByDescending(v => v.Degree);
 
 ### Depth first search
 
+Reference: [Wikipedia](https://en.wikipedia.org/wiki/Depth-first_search)
+
+Returns the deepest vertices first, working back to the root(s). Does not support cyclic graphs.
+
 ``` csharp
 var graph = new DirectedGraph<string>();
-var search = GraphSearch.DepthFirst(graph); // Or new DepthFirstSearch<string, Edge<string>>(graph);
 
-foreach (var vertex in search.Execute())
+// Search across the entire graph (in the case of multiple disconnected 
+// graphs being contained in the same structure)
+foreach (var vertex in graph.Search(SearchKind.DepthFirst))
+{
+	Console.WriteLine(vertex);
+}
+
+// Or search from a specific starting vertex - only the connected vertices will be returned
+foreach (var vertex in graph.Search(SearchKind.DepthFirst, "A"))
 {
 	Console.WriteLine(vertex);
 }

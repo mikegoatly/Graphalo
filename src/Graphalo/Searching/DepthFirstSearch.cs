@@ -4,7 +4,7 @@ using System.Linq;
 namespace Graphalo.Searching
 {
     public class DepthFirstSearch<TVertex, TEdge> : IGraphSearch<TVertex, TEdge>
-        where TEdge: IEdge<TVertex>
+        where TEdge : IEdge<TVertex>
     {
         private readonly IDirectedGraph<TVertex, TEdge> graph;
 
@@ -13,6 +13,7 @@ namespace Graphalo.Searching
             this.graph = graph;
         }
 
+        /// <inheritdoc />
         public IEnumerable<TVertex> Execute()
         {
             var output = new Queue<TVertex>(this.graph.VertexCount);
@@ -26,9 +27,20 @@ namespace Graphalo.Searching
             return output;
         }
 
+        /// <inheritdoc />
+        public IEnumerable<TVertex> Execute(TVertex startVertex)
+        {
+            var output = new Queue<TVertex>(this.graph.VertexCount);
+            var state = SearchState.Create(this.graph);
+
+            this.Visit(this.graph, startVertex, state, output);
+
+            return output;
+        }
+
         private void Visit(
             IDirectedGraph<TVertex, TEdge> graph,
-            TVertex vertex, 
+            TVertex vertex,
             SearchState<TVertex, TEdge> state,
             Queue<TVertex> output)
         {

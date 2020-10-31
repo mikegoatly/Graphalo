@@ -55,7 +55,7 @@ namespace Graphalo.Searching
         {
             if (!this.temporaryMarks.Remove(vertex))
             {
-                throw new GraphaloException(Resources.NoTemporaryMarkPresent);
+                throw new GraphaloException(Resources.UnsupportedSearchKind);
             }
         }
 
