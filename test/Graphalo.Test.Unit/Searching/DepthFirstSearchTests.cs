@@ -2,6 +2,7 @@
 using FluentAssertions.Execution;
 using Graphalo.Searching;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace Graphalo.Test.Unit.Searching
@@ -49,6 +50,32 @@ namespace Graphalo.Test.Unit.Searching
             var graph = GraphWithMultipleVertices();
 
             ExecuteTest(graph, "E", "D", "C", "F", "B", "Z", "G");
+        }
+
+        [Fact]
+        public void WithVertexChain_OrderVerticesAddedShouldMakeNoDifferenceToResult()
+        {
+            var graph1 = new DirectedGraph<string>();
+            graph1.AddEdge(new Edge<string>("A", "B"));
+            graph1.AddEdge(new Edge<string>("B", "C"));
+            graph1.AddEdge(new Edge<string>("C", "D"));
+
+            var graph2 = new DirectedGraph<string>();
+            graph2.AddEdge(new Edge<string>("B", "C"));
+            graph2.AddEdge(new Edge<string>("A", "B"));
+            graph2.AddEdge(new Edge<string>("C", "D"));
+
+            var graph3 = new DirectedGraph<string>();
+            graph3.AddEdge(new Edge<string>("C", "D"));
+            graph3.AddEdge(new Edge<string>("B", "C"));
+            graph3.AddEdge(new Edge<string>("A", "B"));
+
+            var results1 = graph1.Search(SearchKind.DepthFirst);
+            var results2 = graph2.Search(SearchKind.DepthFirst);
+            var results3 = graph2.Search(SearchKind.DepthFirst);
+
+            results1.Should().BeEquivalentTo(results2.ToList(), o => o.WithStrictOrdering());
+            results2.Should().BeEquivalentTo(results3.ToList(), o => o.WithStrictOrdering());
         }
 
         [Fact]
