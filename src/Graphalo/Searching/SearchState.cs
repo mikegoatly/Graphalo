@@ -39,15 +39,15 @@ namespace Graphalo.Searching
             this.unmarkedVertices.Remove(vertex);
         }
 
-        public bool TryGetVertexWithoutPermanentMark([NotNullWhen(true)]out TVertex? vertex)
+        public bool TryGetVertexWithoutPermanentMark([NotNullWhen(true)]out TVertex vertex)
         {
-            if (unmarkedVertices.Count == 0)
+            if (this.unmarkedVertices.Count == 0)
             {
-                vertex = default;
+                vertex = default!;
                 return false;
             }
 
-            vertex = unmarkedVertices.First()!;
+            vertex = this.unmarkedVertices.First()!;
             return true;
         }
 
