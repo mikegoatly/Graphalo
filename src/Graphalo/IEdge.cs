@@ -23,5 +23,14 @@
         {
             get;
         }
+
+        /// <summary>
+        /// Gets the weight of the edge.
+        /// </summary>
+        /// <value>The weight of the edge.</value>
+        double Weight
+        {
+            get;
+        }
     }
 }

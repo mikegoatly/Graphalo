@@ -1,5 +1,5 @@
 # Graphalo
-A very simple graph data structure library.
+A *very* simple graph data structure library.
 
 > Currently under construction!
 
@@ -46,4 +46,34 @@ foreach (var vertex in graph.Search(SearchKind.DepthFirst, "A"))
 {
 	Console.WriteLine(vertex);
 }
+```
+
+## Traversal
+
+### Dijkstra's Algorithm
+
+Reference: [Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+
+Attempts to find the shortest path between two vertices, taking into account the weights of each edge.
+Cycles in the graph are supported and will not cause infinite loops.
+
+``` csharp
+//   B-
+//  /5 \2
+// A    C
+//  \2 /1
+//   D-
+var graph = new DirectedGraph<string>();
+graph.AddEdge(new Edge<string>("A", "B", 5));
+graph.AddEdge(new Edge<string>("B", "C", 2));
+graph.AddEdge(new Edge<string>("A", "D", 2));
+graph.AddEdge(new Edge<string>("D", "C", 1));
+
+foreach (var vertex in graph.Traverse(TraversalKind.Dijkstra))
+{
+	Console.Write(vertex);
+	Console.Write(" ");
+}
+
+// Output: A D C
 ```

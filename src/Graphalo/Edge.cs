@@ -2,10 +2,11 @@
 {
     public class Edge<TVertex> : IEdge<TVertex>
     {
-        public Edge(TVertex from, TVertex to)
+        public Edge(TVertex from, TVertex to, double weight = 1D)
         {
             From = from;
             To = to;
+            this.Weight = weight;
         }
 
         /// <inheritdoc />
@@ -13,5 +14,8 @@
 
         /// <inheritdoc />
         public TVertex To { get; }
+        
+        /// <inheritdoc />
+        public double Weight { get; }
     }
 }

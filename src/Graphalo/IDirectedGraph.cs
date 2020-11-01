@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Graphalo.Searching;
+using Graphalo.Traversal;
+using System;
 using System.Collections.Generic;
 
 namespace Graphalo
@@ -25,5 +27,22 @@ namespace Graphalo
         /// The vertices that were matched by the search.
         /// </returns>
         IEnumerable<TVertex> Search(SearchKind searchKind);
+
+        /// <summary>
+        /// Attempts to traverse the graph
+        /// </summary>
+        /// <param name="traversalKind">
+        /// The traversal algorithm to use.
+        /// </param>
+        /// <param name="source">
+        /// The vertex to start from.
+        /// </param>
+        /// <param name="target">
+        /// The vertex to attempt to reach.
+        /// </param>
+        /// <returns>
+        /// The <see cref="TraversalResult{TVertex}"/> containing the traversal results, including whether or not traversal was successful.
+        /// </returns>
+        TraversalResult<TVertex> Traverse(TraversalKind traversalKind, TVertex source, TVertex target);
     }
 }

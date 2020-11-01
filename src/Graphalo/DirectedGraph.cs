@@ -1,4 +1,5 @@
 ﻿using Graphalo.Searching;
+using Graphalo.Traversal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -111,6 +112,18 @@ namespace Graphalo
                 SearchKind.DepthFirst => new DepthFirstSearch<TVertex, TEdge>(this),
                 _ => throw new ArgumentException(nameof(searchKind), string.Format(CultureInfo.InvariantCulture, Resources.UnsupportedSearchKind, searchKind))
             };
+        }
+
+        /// <inheritdoc />
+        public TraversalResult<TVertex> Traverse(TraversalKind traversalKind, TVertex source, TVertex target)
+        {
+            var algorithm = traversalKind switch
+            {
+                TraversalKind.Dijkstra => DijkstraShortestPathFirstAlgorithm<TVertex, TEdge>.Instance,
+                _ => throw new ArgumentException(nameof(traversalKind), string.Format(CultureInfo.InvariantCulture, Resources.UnsupportedTraversalKind, traversalKind))
+            };
+
+            return algorithm.Traverse(this, source, target);
         }
 
         /// <inheritdoc />

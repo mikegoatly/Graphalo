@@ -61,11 +61,29 @@ namespace Graphalo {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The target vertex is unreachable.
+        /// </summary>
+        internal static string TargetVertexUnreachable {
+            get {
+                return ResourceManager.GetString("TargetVertexUnreachable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unsupported search kind: {0}.
         /// </summary>
         internal static string UnsupportedSearchKind {
             get {
                 return ResourceManager.GetString("UnsupportedSearchKind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported traversal kind: {0}.
+        /// </summary>
+        internal static string UnsupportedTraversalKind {
+            get {
+                return ResourceManager.GetString("UnsupportedTraversalKind", resourceCulture);
             }
         }
     }
