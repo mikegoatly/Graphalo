@@ -94,7 +94,7 @@ namespace Graphalo
         {
             var searchImplementation = CreateSearchImplementation(searchKind);
 
-            return searchImplementation.Execute();
+            return searchImplementation.Execute(this);
         }
 
         /// <inheritdoc />
@@ -102,14 +102,14 @@ namespace Graphalo
         {
             var searchImplementation = CreateSearchImplementation(searchKind);
 
-            return searchImplementation.Execute(startVertex);
+            return searchImplementation.Execute(this, startVertex);
         }
 
         private IGraphSearch<TVertex, TEdge> CreateSearchImplementation(SearchKind searchKind)
         {
             return searchKind switch
             {
-                SearchKind.DepthFirst => new DepthFirstSearch<TVertex, TEdge>(this),
+                SearchKind.DepthFirst => DepthFirstSearch<TVertex, TEdge>.Instance,
                 _ => throw new ArgumentException(nameof(searchKind), string.Format(CultureInfo.InvariantCulture, Resources.UnsupportedSearchKind, searchKind))
             };
         }

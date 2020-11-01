@@ -6,34 +6,29 @@ namespace Graphalo.Searching
     public class DepthFirstSearch<TVertex, TEdge> : IGraphSearch<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {
-        private readonly IDirectedGraph<TVertex, TEdge> graph;
-
-        public DepthFirstSearch(IDirectedGraph<TVertex, TEdge> graph)
-        {
-            this.graph = graph;
-        }
+        public static DepthFirstSearch<TVertex, TEdge> Instance { get; } = new DepthFirstSearch<TVertex, TEdge>();
 
         /// <inheritdoc />
-        public IEnumerable<TVertex> Execute()
+        public IEnumerable<TVertex> Execute(IDirectedGraph<TVertex, TEdge> graph)
         {
-            var output = new Queue<TVertex>(this.graph.VertexCount);
-            var state = SearchState.Create(this.graph);
+            var output = new Queue<TVertex>(graph.VertexCount);
+            var state = SearchState.Create(graph);
 
             while (state.TryGetVertexWithoutPermanentMark(out var vertex))
             {
-                this.Visit(this.graph, vertex, state, output);
+                this.Visit(graph, vertex, state, output);
             }
 
             return output;
         }
 
         /// <inheritdoc />
-        public IEnumerable<TVertex> Execute(TVertex startVertex)
+        public IEnumerable<TVertex> Execute(IDirectedGraph<TVertex, TEdge> graph, TVertex startVertex)
         {
-            var output = new Queue<TVertex>(this.graph.VertexCount);
-            var state = SearchState.Create(this.graph);
+            var output = new Queue<TVertex>(graph.VertexCount);
+            var state = SearchState.Create(graph);
 
-            this.Visit(this.graph, startVertex, state, output);
+            this.Visit(graph, startVertex, state, output);
 
             return output;
         }

@@ -12,7 +12,7 @@ namespace Graphalo.Test.Unit.Traversal
             var graph = new DirectedGraph<string>();
             graph.AddVertex("A");
 
-            this.RunSuccessfulTest(graph, "A", "A", "A");
+            RunSuccessfulTest(graph, "A", "A", "A");
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace Graphalo.Test.Unit.Traversal
             var graph = new DirectedGraph<string>();
             graph.AddEdge(new Edge<string>("A", "B"));
 
-            this.RunSuccessfulTest(graph, "A", "B", "A", "B");
+            RunSuccessfulTest(graph, "A", "B", "A", "B");
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace Graphalo.Test.Unit.Traversal
             // Start -2> B -3> C -1> End == 6
             // Start -1> E -2> F -1> End == 4
 
-            this.RunSuccessfulTest(graph, "Start", "End", "Start", "E", "F", "End");
+            RunSuccessfulTest(graph, "Start", "End", "Start", "E", "F", "End");
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Graphalo.Test.Unit.Traversal
             graph.AddEdge(new Edge<string>("B", "A", 3D));
             graph.AddVertex("C");
 
-            this.RunUnSuccessfulTest(graph, "A", "C");
+            RunUnSuccessfulTest(graph, "A", "C");
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace Graphalo.Test.Unit.Traversal
             graph.AddEdge(new Edge<string>("B", "D"));
             graph.AddEdge(new Edge<string>("D", "E"));
 
-            this.RunSuccessfulTest(graph, "A", "E", "A", "B", "D", "E");
+            RunSuccessfulTest(graph, "A", "E", "A", "B", "D", "E");
         }
 
         [Fact]
@@ -72,16 +72,16 @@ namespace Graphalo.Test.Unit.Traversal
             graph.AddEdge(new Edge<string>("A", "B"));
             graph.AddVertex("C");
 
-            this.RunUnSuccessfulTest(graph, "A", "C");
+            RunUnSuccessfulTest(graph, "A", "C");
         }
 
-        private void RunUnSuccessfulTest(DirectedGraph<string> graph, string source, string target)
+        private static void RunUnSuccessfulTest(DirectedGraph<string> graph, string source, string target)
         {
             var result = graph.Traverse(TraversalKind.Dijkstra, source, target);
             result.Success.Should().BeFalse();
         }
 
-        private void RunSuccessfulTest(DirectedGraph<string> graph, string source, string target, params string[] expectedVertices)
+        private static void RunSuccessfulTest(DirectedGraph<string> graph, string source, string target, params string[] expectedVertices)
         {
             var result = graph.Traverse(TraversalKind.Dijkstra, source, target);
             result.Success.Should().BeTrue();
