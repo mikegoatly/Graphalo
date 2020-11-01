@@ -1,7 +1,7 @@
+![Build and test](https://github.com/mikegoatly/Graphalo/workflows/Build%20and%20test/badge.svg)
+
 # Graphalo
 A *very* simple graph data structure library.
-
-> Currently under construction!
 
 ## Example usage:
 
