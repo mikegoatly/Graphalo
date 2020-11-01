@@ -5,6 +5,15 @@ using System.Collections.Generic;
 
 namespace Graphalo
 {
+    /// <summary>
+    /// A graph whose edges support a direction.
+    /// </summary>
+    /// <typeparam name="TVertex">
+    /// The type of data to store in vertices.
+    /// </typeparam>
+    /// <typeparam name="TEdge">
+    /// The type of edge used by the graph.
+    /// </typeparam>
     public interface IDirectedGraph<TVertex, TEdge> : IEdgeSet<TVertex, TEdge>, IVertexSet<TVertex, TEdge>
         where TEdge : IEdge<TVertex>
     {

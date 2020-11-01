@@ -22,6 +22,7 @@ namespace Graphalo
         }
     }
 
+    /// <inheritdoc />
     public class DirectedGraph<TVertex, TEdge> : IDirectedGraph<TVertex, TEdge> 
         where TEdge : IEdge<TVertex>
     {
