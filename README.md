@@ -69,11 +69,11 @@ graph.AddEdge(new Edge<string>("B", "C", 2));
 graph.AddEdge(new Edge<string>("A", "D", 2));
 graph.AddEdge(new Edge<string>("D", "C", 1));
 
-foreach (var vertex in graph.Traverse(TraversalKind.Dijkstra))
+foreach (var vertex in graph.Traverse(TraversalKind.Dijkstra, "A", "C"))
 {
 	Console.Write(vertex);
 	Console.Write(" ");
 }
 
-// Output: A D C
+// Output: A D C (The route via D is the cheapest)
 ```
