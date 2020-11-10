@@ -75,11 +75,18 @@ graph.AddEdge(new Edge<string>("B", "C", 2));
 graph.AddEdge(new Edge<string>("A", "D", 2));
 graph.AddEdge(new Edge<string>("D", "C", 1));
 
-foreach (var vertex in graph.Traverse(TraversalKind.Dijkstra, "A", "C"))
+var traversalResult = graph.Traverse(TraversalKind.Dijkstra, "A", "C");
+
+// traversalResult.Success will be true
+foreach (var vertex in traversalResult.Results)
 {
 	Console.Write(vertex);
 	Console.Write(" ");
 }
 
 // Output: A D C (The route via D is the cheapest)
+
+// Attempt a tranversal to an unreachable node:
+traversalResult = graph.Traverse(TraversalKind.Dijkstra, "B", "D");
+// traversalResult.Success will be false
 ```
