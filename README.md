@@ -3,6 +3,12 @@
 # Graphalo
 A *very* simple graph data structure library.
 
+## Installation
+
+``` powershell
+Install-Package Graphalo
+```
+
 ## Example usage:
 
 ``` csharp
