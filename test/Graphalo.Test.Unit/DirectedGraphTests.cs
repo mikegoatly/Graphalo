@@ -135,6 +135,21 @@ namespace Graphalo.Test.Unit
             graph.EdgeCount.Should().Be(1);
         }
 
+        [Fact]
+        public void HasOutEdges_ShouldReturnFalseIfRelatedEdgesHaveBeenRemoved()
+        {
+            var graph = CreateTestGraph();
+            graph.AddEdge(new Edge<string>("A", "B"));
+
+            var removed = graph.RemoveVertexWhere(v => graph.HasOutEdges(v) == false);
+
+            removed.Should().BeEquivalentTo(["B"]);
+
+            removed = graph.RemoveVertexWhere(v => graph.HasOutEdges(v) == false);
+
+            removed.Should().BeEquivalentTo(["A"]);
+        }
+
         private static DirectedGraph<string> CreateTestGraph() => new DirectedGraph<string>();
     }
 }

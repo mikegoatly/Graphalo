@@ -169,6 +169,16 @@ namespace Graphalo
         IReadOnlyList<TEdge> RemoveEdgeWhere(Func<TEdge, bool> predicate);
 
         /// <summary>
+        /// Removes edges where the given predicate is true.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate to test. The second parameter is the graph itself which can often allow for the use
+        /// of static functions as predicates.
+        /// </param>
+        /// <returns>The removed edges.</returns>
+        IReadOnlyList<TEdge> RemoveEdgeWhere(Func<TEdge, DirectedGraph<TVertex, TEdge>, bool> predicate);
+
+        /// <summary>
         /// Tries to get the edges between the given vertices.
         /// </summary>
         /// <param name="source">The source vertex.</param>

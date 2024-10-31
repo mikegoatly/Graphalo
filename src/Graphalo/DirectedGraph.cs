@@ -225,6 +225,22 @@ namespace Graphalo
         }
 
         /// <inheritdoc />
+        public IReadOnlyList<TVertex> RemoveVertexWhere(Func<TVertex, DirectedGraph<TVertex, TEdge>, bool> predicate)
+        {
+            var removedVertices = new List<TVertex>();
+            foreach (var vertex in this.vertexLookup)
+            {
+                if (predicate(vertex, this))
+                {
+                    removedVertices.Add(vertex);
+                }
+            }
+
+            this.RemoveVertexRange(removedVertices);
+            return removedVertices;
+        }
+
+        /// <inheritdoc />
         public void ClearEdges(TVertex vertex)
         {
             this.ClearInEdges(vertex);
@@ -292,13 +308,15 @@ namespace Graphalo
         /// <inheritdoc />
         public bool HasInEdges(TVertex vertex)
         {
-            return this.inEdges.ContainsKey(vertex);
+            return this.inEdges.TryGetValue(vertex, out var edges)
+                && edges.Count > 0;
         }
 
         /// <inheritdoc />
         public bool HasOutEdges(TVertex vertex)
         {
-            return this.outEdges.ContainsKey(vertex);
+            return this.outEdges.TryGetValue(vertex, out var edges) 
+                && edges.Count > 0;
         }
 
         /// <inheritdoc />
@@ -373,6 +391,22 @@ namespace Graphalo
             var removeEdges = this.AllEdges.Where(predicate).ToList();
             this.RemoveEdgeRange(removeEdges);
             return removeEdges;
+        }
+
+        /// <inheritdoc />
+        public IReadOnlyList<TEdge> RemoveEdgeWhere(Func<TEdge, DirectedGraph<TVertex, TEdge>, bool> predicate)
+        {
+            var removedEdges = new List<TEdge>();
+            foreach (var edge in this.AllEdges)
+            {
+                if (predicate(edge, this))
+                {
+                    removedEdges.Add(edge);
+                }
+            }
+
+            this.RemoveEdgeRange(removedEdges);
+            return removedEdges;
         }
 
         private static void AddEdge(Dictionary<TVertex, IList<TEdge>> edgeDictionary, TVertex vertex, TEdge edge)

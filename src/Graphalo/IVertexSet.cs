@@ -76,8 +76,20 @@ namespace Graphalo
         /// </summary>
         /// <param name="predicate">The predicate to match.</param>
         /// <returns>
-        /// The number of removed vertices.
+        /// The set of removed vertices.
         /// </returns>
         IReadOnlyList<TVertex> RemoveVertexWhere(Func<TVertex, bool> predicate);
+
+        /// <summary>
+        /// Removes vertices that match the given predicate.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate to test. The second parameter is the graph itself which can often allow for the use
+        /// of static functions as predicates.
+        /// </param>
+        /// <returns>
+        /// The set of removed vertices.
+        /// </returns>
+        IReadOnlyList<TVertex> RemoveVertexWhere(Func<TVertex, DirectedGraph<TVertex, TEdge>, bool> predicate);
     }
 }
