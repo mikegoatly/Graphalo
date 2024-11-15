@@ -150,6 +150,24 @@ namespace Graphalo.Test.Unit
             removed.Should().BeEquivalentTo(["A"]);
         }
 
+        [Fact]
+        public void TryGetVertexInfo_ShouldReturnTrueIfVertexExists()
+        {
+            var graph = CreateTestGraph();
+            graph.AddVertex("A");
+            graph.TryGetVertexInfo("A", out var vertexInfo).Should().BeTrue();
+            vertexInfo.Vertex.Should().Be("A");
+        }
+
+        [Fact]
+        public void TryGetVertexInfo_ShouldReturnFalseIfVertexDoesntExist()
+        {
+            var graph = CreateTestGraph();
+            graph.AddVertex("B");
+            graph.TryGetVertexInfo("A", out var vertexInfo).Should().BeFalse();
+            vertexInfo.Should().BeEquivalentTo(default(VertexInfo<string, Edge<string>>));
+        }
+
         private static DirectedGraph<string> CreateTestGraph() => new DirectedGraph<string>();
     }
 }

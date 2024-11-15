@@ -57,6 +57,20 @@ namespace Graphalo
         bool ContainsVertex(TVertex vertex);
 
         /// <summary>
+        /// Tries to get the <see cref="VertexInfo{TVertex, TEdge}"/> for the given vertex.
+        /// </summary>
+        /// <param name="vertex">
+        /// The vertex to get the <see cref="VertexInfo{TVertex, TEdge}"/> for.
+        /// </param>
+        /// <param name="vertexInfo">
+        /// The <see cref="VertexInfo{TVertex, TEdge}"/> for the given vertex, if it exists.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the vertex exists in the graph; otherwise, <c>false</c>.
+        /// </returns>
+        bool TryGetVertexInfo(TVertex vertex, out VertexInfo<TVertex, TEdge> vertexInfo);
+
+        /// <summary>
         /// Removes the vertex and any associated edges from the graph.
         /// </summary>
         /// <param name="vertex">The vertex to remove.</param>

@@ -12,7 +12,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/mikegoatly/Graphalo</PackageProjectUrl>
     <PackageTags>graph traversal search shortest path depth-first-search dijkstra</PackageTags>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <RepositoryUrl>https://github.com/mikegoatly/Graphalo</RepositoryUrl>
   </PropertyGroup>
 

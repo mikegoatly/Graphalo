@@ -326,6 +326,19 @@ namespace Graphalo
         }
 
         /// <inheritdoc />
+        public bool TryGetVertexInfo(TVertex vertex, out VertexInfo<TVertex, TEdge> vertexInfo)
+        {
+            if (this.vertexLookup.Contains(vertex))
+            {
+                vertexInfo = new VertexInfo<TVertex, TEdge>(this, vertex);
+                return true;
+            }
+
+            vertexInfo = default;
+            return false;
+        }
+
+        /// <inheritdoc />
         public bool RemoveEdge(TEdge edge)
         {
             if (!this.inEdges.TryGetValue(edge.To, out var inEdges))
